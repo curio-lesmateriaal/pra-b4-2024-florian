@@ -58,8 +58,8 @@ namespace PRA_B4_FOTOKIOSK.controller
                     DateTime.TryParseExact(pictureTimeString, "HH_mm_ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out pictureTime);
 
                     // We berekenen de onder en boven grens van 30 minuten en 2 minuten geleden.
-                    DateTime ThirtyMinutesAgo = DateTime.Now.AddMinutes(-30).AddHours(-8);
-                    DateTime TwoMinutesAgo = DateTime.Now.AddMinutes(-2).AddHours(-8);
+                    DateTime ThirtyMinutesAgo = DateTime.Now.AddMinutes(-30);
+                    DateTime TwoMinutesAgo = DateTime.Now.AddMinutes(-2);
 
                     //Als de foto ouder is dan 30 minuten of nieuwer dan 2 minuten laten we deze niet zien.
                     if (pictureTime < ThirtyMinutesAgo || pictureTime > TwoMinutesAgo)
