@@ -42,6 +42,12 @@ namespace PRA_B4_FOTOKIOSK.magie
             SetShopReceipt(GetShopReceipt() + text);
         }
 
+        // Helper functie om de bon leeg te maken
+        public static void ClearShopReceipt()
+        {
+            SetShopReceipt("");
+        }
+
         public static void UpdateDropDownProducts()
         {
             Instance.cbProducts.Items.Clear();
@@ -82,6 +88,14 @@ namespace PRA_B4_FOTOKIOSK.magie
                 id = amount;
             }
             return id;
+        }
+
+        // Helper functie om de form velden leeg te maken
+        public static void ClearInputFields()
+        {
+            Instance.tbFotoId.Clear();
+            Instance.tbAmount.Clear();
+            Instance.cbProducts.SelectedIndex = -1;
         }
     }
 }
