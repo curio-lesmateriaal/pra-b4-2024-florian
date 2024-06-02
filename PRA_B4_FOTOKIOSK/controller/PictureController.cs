@@ -24,11 +24,6 @@ namespace PRA_B4_FOTOKIOSK.controller
         // Start methode die wordt aangeroepen wanneer de foto pagina opent.
         public void Start()
         {
-            // We berekenen de onder en boven grens van 30 minuten en 2 minuten geleden.
-            // We declareren deze variabelen buiten de foreach loop omdat de waarde ervan constant blijft
-            DateTime ThirtyMinutesAgo = DateTime.Now.AddMinutes(-30);
-            DateTime TwoMinutesAgo = DateTime.Now.AddMinutes(-2);
-
             // Initializeer de lijst met fotos
             // WAARSCHUWING. ZONDER FILTER LAADT DIT ALLES!
             // foreach is een for-loop die door een array loopt
@@ -36,9 +31,8 @@ namespace PRA_B4_FOTOKIOSK.controller
             {
                 // Index van vandaag
                 int indexToday = (int)DateTime.Now.DayOfWeek;
-
                 // Index van de huidige directory in de foreach
-                int indexDirectory = int.Parse(Path.GetFileName(dir).Substring(0, 1));
+                int indexDirectory = Int32.Parse(Path.GetFileName(dir).Substring(0, 1));
 
                 // Als de index van vandaag niet gelijk is aan de index van de directory slaan we deze over. Zo tonen we enkel foto's van vandaag.
                 if (!indexToday.Equals(indexDirectory))
@@ -57,10 +51,15 @@ namespace PRA_B4_FOTOKIOSK.controller
 
                 foreach (string file in files)
                 {
+
                     // We parsen de tijd in de foto naam en zetten deze in een DateTime.
                     DateTime pictureTime; 
                     String pictureTimeString = Path.GetFileName(file).Substring(0, 8);
                     DateTime.TryParseExact(pictureTimeString, "HH_mm_ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out pictureTime);
+
+                    // We berekenen de onder en boven grens van 30 minuten en 2 minuten geleden.
+                    DateTime ThirtyMinutesAgo = DateTime.Now.AddMinutes(-30).AddHours(-8);
+                    DateTime TwoMinutesAgo = DateTime.Now.AddMinutes(-2).AddHours(-8);
 
                     //Als de foto ouder is dan 30 minuten of nieuwer dan 2 minuten laten we deze niet zien.
                     if (pictureTime < ThirtyMinutesAgo || pictureTime > TwoMinutesAgo)
@@ -72,7 +71,7 @@ namespace PRA_B4_FOTOKIOSK.controller
                      */
                     int idIndex = file.IndexOf("id");
                     // We halen de id van de foto uit de foto naam.
-                    int id = int.Parse(file.Substring(idIndex + 2, 4));
+                    int id = Int32.Parse(file.Substring(idIndex + 2, 4));
                     PicturesToDisplay.Add(new KioskPhoto() { Id = id, Source = file });
                 }
             }
